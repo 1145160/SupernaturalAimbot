@@ -9,18 +9,18 @@ jobs:
       
       - name: Install Theos
         run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          git clone --recursive https://github.com/theos/theos.git /tmp/theos
           
       - name: Build
         run: |
-          export THEOS=$HOME/theos
-          $HOME/theos/bin/nic.pl
+          export THEOS=/tmp/theos
+          /tmp/theos/bin/nic.pl
           make package
         env:
-          THEOS: ${{ github.workspace }}/theos
+          THEOS: /tmp/theos
           
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: XyAim
-          path: packages/*.deb
+          path: packages/*.deb     
