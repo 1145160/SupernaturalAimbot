@@ -1,4 +1,4 @@
-export THEOS=$(HOME)/theos
+export THEOS=/tmp/theos
 
 TARGET = iphone:clang:latest:14.0
 INSTALL_TARGET_PROCESSES = 超自然行动组
