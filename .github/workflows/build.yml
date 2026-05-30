@@ -1,26 +1,23 @@
-name: Build XyAim
+name: Build Theos Tweak
+
 on:
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install Theos
-        run: |
-          git clone --recursive https://github.com/theos/theos.git /tmp/theos
-          
       - name: Build
-        run: |
-          export THEOS=/tmp/theos
-          /tmp/theos/bin/nic.pl
-          make package
-        env:
-          THEOS: /tmp/theos
-          
-      - name: Upload
+        uses: theos/theos-action@v1
+        with:
+          package-name: XyAim
+          resource: .
+          flags: --codesign-identity=-
+      
+      - name: Upload deb
         uses: actions/upload-artifact@v4
         with:
-          name: XyAim
-          path: packages/*.deb     
+          name: XyAim.deb
+          path: packages/*.deb
