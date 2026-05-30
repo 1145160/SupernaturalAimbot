@@ -9,17 +9,15 @@ jobs:
       
       - name: Install Theos
         run: |
-          git clone --recursive https://github.com/theos/theos.git /tmp/theos
-          echo "THEOS=/tmp/theos" >> $GITHUB_ENV
-          echo "/tmp/theos/bin" >> $GITHUB_PATH
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
           
-      - name: Install ldid
-        run: brew install ldid
-        
       - name: Build
         run: |
-          export THEOS=/tmp/theos
+          export THEOS=$HOME/theos
+          $HOME/theos/bin/nic.pl
           make package
+        env:
+          THEOS: ${{ github.workspace }}/theos
           
       - name: Upload
         uses: actions/upload-artifact@v4
