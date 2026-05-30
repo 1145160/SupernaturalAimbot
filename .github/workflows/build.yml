@@ -6,12 +6,21 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Install Theos
         run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
-          echo "$HOME/theos/bin" >> $GITHUB_PATH
+          git clone --recursive https://github.com/theos/theos.git /tmp/theos
+          echo "THEOS=/tmp/theos" >> $GITHUB_ENV
+          echo "/tmp/theos/bin" >> $GITHUB_PATH
+          
+      - name: Install ldid
+        run: brew install ldid
+        
       - name: Build
-        run: make package
+        run: |
+          export THEOS=/tmp/theos
+          make package
+          
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
