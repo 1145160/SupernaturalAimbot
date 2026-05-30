@@ -1,3 +1,5 @@
+export THEOS=$(HOME)/theos
+
 TARGET = iphone:clang:latest:14.0
 INSTALL_TARGET_PROCESSES = 超自然行动组
 
@@ -7,4 +9,4 @@ TWEAK_NAME = XyAim
 XyAim_FILES = XyAim.xm
 XyAim_CFLAGS = -fobjc-arc
 
-include $(THEOS_MAKE_PATH)/tweak.mk
+include $(THEOS)/makefiles/tweak.mk
